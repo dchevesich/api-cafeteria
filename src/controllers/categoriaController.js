@@ -1,4 +1,6 @@
 const categoriaService = require('../services/categoriaService');
+const {validationResult} = require('express-validator')
+
 
 const obtenerAllcategoria = async (req, res) => {
   try {
@@ -60,15 +62,16 @@ const eliminarCategoria = async (req,res) => {
 
 const actualizarCategoria = async (req,res) =>{
   try{
+    const errores = validationResult(req);
+    if(!errores.isEmpty()){
+      return res.status(400).json({
+        ok:false,
+        message: errores.array()
+      })
+    }
     const {id} = req.params;
     const datos = req.body;
     const categoria = await categoriaService.actualizarCategoria(id,datos)
-    if (!categoria){
-      return res.status(404).json({
-        ok: false,
-        message: 'Categoria no encontrada'
-      });
-    }
     return res.status(200).json({
       ok: true,
       data: categoria,
@@ -84,14 +87,15 @@ const actualizarCategoria = async (req,res) =>{
 
 const crearCategoria = async (req,res) => {
   try{
+    const errores = validationResult(req);
+    if(!errores.isEmpty()){
+      return res.status(400).json({
+        ok: false,
+        errores: errores.array()  // devuelve array de errores
+      });
+    }
     const datos = req.body;
     const categoria = await categoriaService.crearCategoria(datos);
-    if(!categoria){
-      return res.status(404).json({
-        ok: false,
-        message: 'Categoria no encontrada'
-      })
-    }
     return res.status(201).json({
       ok: true,
       data: categoria,

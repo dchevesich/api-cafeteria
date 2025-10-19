@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 // Se importan los controllers para mapearlos a las rutas
 const productoController = require('../controllers/productoController');
+const { validarCrearProducto, validarActualizarProducto } = require('../validators/productoValidators');
 
 // Obtener todos los productos desde el controller obtenerTodos
 router.get('/', productoController.obtenerTodos);  
@@ -10,10 +11,10 @@ router.get('/', productoController.obtenerTodos);
 router.get('/:id', productoController.obtenerPorId);
 
 // Crear un producto
-router.post('/', productoController.crear);
+router.post('/',validarCrearProducto, productoController.crear);
 
 // Actualizar un producto
-router.put('/:id', productoController.actualizar);
+router.put('/:id',validarActualizarProducto, productoController.actualizar);
 
 // Eliminar un producto
 router.delete('/:id', productoController.eliminar);
