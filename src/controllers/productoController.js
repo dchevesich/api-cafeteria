@@ -1,4 +1,5 @@
 const productoService = require('../services/productoService');
+const {validationResult} = require('express-validator')
 
 const obtenerTodos = async (req, res) => {
   try {
@@ -45,22 +46,22 @@ const obtenerPorId = async (req, res) => {
 
 const crear = async (req, res) => {
   try {
-    const datos = req.body;
-    
-    if (!datos.nombre || !datos.precio) {
-      return res.status(400).json({
+    const errores = validationResult(req);
+    if(!errores.isEmpty()){
+       return res.status(400).json({
         ok: false,
-        message: 'Nombre y precio son obligatorios'
+        errores: errores.array()  // devuelve array de errores
       });
     }
     
+    const datos = req.body;
     const nuevoProducto = await productoService.crear(datos);
-    
     return res.status(201).json({
       ok: true,
       data: nuevoProducto,
       message: 'Producto creado correctamente'
     });
+    
   } catch (error) {
     console.error('Error en crear:', error);
     return res.status(500).json({
@@ -72,18 +73,17 @@ const crear = async (req, res) => {
 
 const actualizar = async (req, res) => {
   try {
+    const errores = validationResult(req);
+    if(!errores.isEmpty()){
+      return res.status(400).json({
+        ok: false,
+        errores: errores.array()
+      })
+    }
     const { id } = req.params;
     const datos = req.body;
     
     const productoActualizado = await productoService.actualizar(id,datos);
-    
-    if (!productoActualizado) {
-      return res.status(404).json({
-        ok: false,
-        message: 'Producto no encontrado'
-      });
-    }
-    
     return res.status(200).json({
       ok: true,
       data: productoActualizado,
