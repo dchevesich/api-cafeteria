@@ -4,15 +4,12 @@ const router = express.Router();
 const categoriaController = require('../controllers/categoriaController');
 // Se importan validaciones
 const { validarCrearCategoria, validarActualizarCategoria } = require('../validators/categoriaValidators');
+const { autenticar, verificarRol } = require('../middlewares/authMiddleware');
 
 router.get('/:id', categoriaController.categoriaPorid)
-
 router.get('/', categoriaController.obtenerAllcategoria)
-
-router.delete('/:id', categoriaController.eliminarCategoria)
-
-router.put('/:id',validarActualizarCategoria, categoriaController.actualizarCategoria)
-
-router.post('/',validarCrearCategoria, categoriaController.crearCategoria)
+router.delete('/:id', autenticar, verificarRol(['admin']), categoriaController.eliminarCategoria)
+router.put('/:id', autenticar, verificarRol(['admin']), validarActualizarCategoria, categoriaController.actualizarCategoria)
+router.post('/', autenticar, verificarRol(['cajero', 'admin']), validarCrearCategoria, categoriaController.crearCategoria)
 
 module.exports = router;    

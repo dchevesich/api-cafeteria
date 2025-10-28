@@ -3,6 +3,7 @@ const router = express.Router();
 // Se importan los controllers para mapearlos a las rutas
 const productoController = require('../controllers/productoController');
 const { validarCrearProducto, validarActualizarProducto } = require('../validators/productoValidators');
+const { autenticar, verificarRol } = require('../middlewares/authMiddleware');
 
 // Obtener todos los productos desde el controller obtenerTodos
 router.get('/', productoController.obtenerTodos);  
@@ -11,12 +12,12 @@ router.get('/', productoController.obtenerTodos);
 router.get('/:id', productoController.obtenerPorId);
 
 // Crear un producto
-router.post('/',validarCrearProducto, productoController.crear);
+router.post('/', autenticar, verificarRol(['admin', 'cajero']), validarCrearProducto, productoController.crear);
 
 // Actualizar un producto
-router.put('/:id',validarActualizarProducto, productoController.actualizar);
+router.put('/:id', autenticar, verificarRol(['admin','cajero']), validarActualizarProducto, productoController.actualizar);
 
 // Eliminar un producto
-router.delete('/:id', productoController.eliminar);
+router.delete('/:id', autenticar, verificarRol(['admin']), productoController.eliminar);
 
 module.exports = router;
