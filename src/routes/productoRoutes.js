@@ -20,4 +20,4 @@ router.put('/:id', autenticar, verificarRol(['admin','cajero']), validarActualiz
 // Eliminar un producto
 router.delete('/:id', autenticar, verificarRol(['admin']), productoController.eliminar);
 
-module.exports = router;
+module.exports = router;        

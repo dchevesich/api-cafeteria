@@ -18,7 +18,7 @@ const crear = async (datos) => {
     .returning('*');
   return producto;  
 };
-
+  
 const actualizar = async (id, datos) => {  
   const [producto] = await db('productos')
     .where({ id })  
