@@ -15,7 +15,7 @@ const loginUsuario = async (email, password) => {
     if (!coincide) {
     throw new Error('Credenciales incorrectas');
     }
-   // 5. Generar token con userId y rol
+   // 5. Generar payload con userId y rol
    const token = generarToken({
     userId: buscarUsuario.id,
     rol: buscarUsuario.rol,
@@ -24,6 +24,7 @@ const loginUsuario = async (email, password) => {
   return { 
   token,
   usuario: {
+    // Datos traidos desde la query al models
     id: buscarUsuario.id,
     email: buscarUsuario.email,
     nombre: buscarUsuario.nombre,

@@ -24,13 +24,14 @@ API RESTful para gestión de productos y categorías de una cafetería, implemen
 
 ## 👥 Roles y Permisos
 
-| Rol | Productos | Categorías |
-|-----|-----------|------------|
-| **Admin** | ✅ Crear, Leer, Actualizar, Eliminar | ✅ Crear, Leer, Actualizar, Eliminar |
-| **Cajero** | ✅ Crear, Leer, Actualizar | ✅ Crear, Leer |
-| **No autenticado** | ✅ Leer | ✅ Leer |
+| Rol                | Productos                            | Categorías                           |
+| ------------------ | ------------------------------------ | ------------------------------------ |
+| **Admin**          | ✅ Crear, Leer, Actualizar, Eliminar | ✅ Crear, Leer, Actualizar, Eliminar |
+| **Cajero**         | ✅ Crear, Leer, Actualizar           | ✅ Crear, Leer                       |
+| **No autenticado** | ✅ Leer                              | ✅ Leer                              |
 
 ## 🔧 Instalación
+
 ```bash
 # Clonar repositorio
 git clone https://github.com/tu-usuario/api-cafeteria.git
@@ -52,6 +53,7 @@ npm start
 ```
 
 ## 📝 Variables de Entorno
+
 ```env
 # Base de datos
 DB_HOST=localhost
@@ -71,6 +73,7 @@ NODE_ENV=development
 ## 🔐 Endpoints de Autenticación
 
 ### Login
+
 ```http
 POST /api/auth/login
 Content-Type: application/json
@@ -82,6 +85,7 @@ Content-Type: application/json
 ```
 
 **Respuesta:**
+
 ```json
 {
   "ok": true,
@@ -97,16 +101,19 @@ Content-Type: application/json
 ## 📦 Endpoints de Productos
 
 ### Listar todos los productos
+
 ```http
 GET /api/productos
 ```
 
 ### Obtener producto por ID
+
 ```http
 GET /api/productos/:id
 ```
 
 ### Crear producto (requiere autenticación: admin o cajero)
+
 ```http
 POST /api/productos
 Authorization: Bearer {token}
@@ -121,6 +128,7 @@ Content-Type: application/json
 ```
 
 ### Actualizar producto (requiere autenticación: admin o cajero)
+
 ```http
 PUT /api/productos/:id
 Authorization: Bearer {token}
@@ -134,6 +142,7 @@ Content-Type: application/json
 ```
 
 ### Eliminar producto (requiere autenticación: admin)
+
 ```http
 DELETE /api/productos/:id
 Authorization: Bearer {token}
@@ -142,16 +151,19 @@ Authorization: Bearer {token}
 ## 🗂️ Endpoints de Categorías
 
 ### Listar todas las categorías
+
 ```http
 GET /api/categoria
 ```
 
 ### Obtener categoría por ID
+
 ```http
 GET /api/categoria/:id
 ```
 
 ### Crear categoría (requiere autenticación: admin o cajero)
+
 ```http
 POST /api/categoria
 Authorization: Bearer {token}
@@ -164,6 +176,7 @@ Content-Type: application/json
 ```
 
 ### Actualizar categoría (requiere autenticación: admin)
+
 ```http
 PUT /api/categoria/:id
 Authorization: Bearer {token}
@@ -176,12 +189,14 @@ Content-Type: application/json
 ```
 
 ### Eliminar categoría (requiere autenticación: admin)
+
 ```http
 DELETE /api/categoria/:id
 Authorization: Bearer {token}
 ```
 
 ## 🏗️ Arquitectura del Proyecto
+
 ```
 src/
 ├── controllers/     # Manejo de requests/responses
@@ -195,6 +210,7 @@ src/
 ## 🧪 Ejemplos de Uso con cURL
 
 **Login:**
+
 ```bash
 curl -X POST http://localhost:5000/api/auth/login \
   -H "Content-Type: application/json" \
@@ -202,6 +218,7 @@ curl -X POST http://localhost:5000/api/auth/login \
 ```
 
 **Crear producto (con token):**
+
 ```bash
 curl -X POST http://localhost:5000/api/productos \
   -H "Content-Type: application/json" \
@@ -220,6 +237,7 @@ curl -X POST http://localhost:5000/api/productos \
 ## 👨‍💻 Autor
 
 **Danko Chevesich**
+
 - GitHub: https://github.com/dchevesich
 - LinkedIn: https://www.linkedin.com/in/danko-chevesich-4a04a7228/
 

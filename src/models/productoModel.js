@@ -1,6 +1,4 @@
-const knex = require('knex');
-const knexConfig = require('../../knexfile');
-const db = knex(knexConfig.development);
+const db = require('../db');
 
 const obtenerTodos = async () => {
   return await db('productos').select('*');
@@ -14,15 +12,15 @@ const obtenerPorId = async (id) => {
 
 const crear = async (datos) => {
   const [producto] = await db('productos')
-    .insert(datos)  
+    .insert(datos)
     .returning('*');
-  return producto;  
+  return producto;
 };
-  
-const actualizar = async (id, datos) => {  
+
+const actualizar = async (id, datos) => {
   const [producto] = await db('productos')
-    .where({ id })  
-    .update(datos)  
+    .where({ id })
+    .update(datos)
     .returning('*');
   return producto;
 };
@@ -31,7 +29,7 @@ const borrar = async (id) => {
   const eliminados = await db('productos')
     .where({ id })
     .delete();
-  return eliminados;  
+  return eliminados;
 };
 
 module.exports = {

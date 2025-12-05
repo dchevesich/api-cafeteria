@@ -5,12 +5,10 @@ const obtenerCategoriasall = async () =>{
 
 }
 
-
 const obtenerCategoriaid = async (id) =>{
     return await CategoriaModel.obtenerPorId(id);
 
 }
-
 
 const eliminarCategoria = async (id) =>{
     return await CategoriaModel.eliminarCategoria(id);

@@ -1,16 +1,8 @@
-const knex = require('knex');
-const knexConfig = require('../../knexfile');
-const db = knex(knexConfig.development);
+const db = require('../db');
 
-
-const buscarPorEmail = async (email) =>{
-    return await db('usuarios').where({email}).first();
+const buscarPorEmail = async (email) => {
+  return await db('usuarios').where({ email }).first();
 };
-
-
-
-
-
 
 module.exports = {
   buscarPorEmail,

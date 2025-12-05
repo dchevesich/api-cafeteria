@@ -1,6 +1,4 @@
-const knex = require('knex');
-const knexConfig = require('../../knexfile');
-const db = knex(knexConfig.development);
+const db = require('../db');
 
 const obtenerTodoscategorias = async () => {
   return await db('categorias').select('*');
@@ -19,8 +17,8 @@ const eliminarCategoria = async (id) => {
     .delete();
 };
 
-const actualizarCategoria = async (id,datos ) => {
-  const [categorias] = await db('categorias').where({id}).update(datos).returning("*")
+const actualizarCategoria = async (id, datos) => {
+  const [categorias] = await db('categorias').where({ id }).update(datos).returning("*")
   return categorias
 }
 
